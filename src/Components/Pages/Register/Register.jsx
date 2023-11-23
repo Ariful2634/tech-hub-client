@@ -11,6 +11,7 @@ const Register = () => {
     const navigate = useNavigate()
     const {createUser}=useContext(AuthContext)
     const[show,setShow]=useState(false)
+    const [pass, setPass] = useState("")
     const handleRegister = e =>{
         e.preventDefault()
         const form = e.target;
@@ -19,6 +20,23 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(name,photo,email,password)
+
+        setPass("")
+
+        if (password.length < 6) {
+            form.reset()
+            return setPass("Password should be at least 6 characters or longer")
+        }
+
+        else if (!/[A-Z]/.test(password)) {
+            form.reset()
+            return setPass("Password should contain at least one uppercase letter")
+        }
+
+        else if (!/[!@#$%^&*()_+{}\\[\]:;<>,.?~\\-]/.test(password)) {
+            form.reset()
+            return setPass("Password should contain at least one special  character")
+        }
 
         createUser(email,password)
         .then(res=>{
@@ -36,6 +54,7 @@ const Register = () => {
               navigate('/')
         })
         .catch(err=>{
+            setPass(err.message)
             console.log(err)
         })
     }
@@ -73,6 +92,11 @@ const Register = () => {
                             <span className='absolute top-[53px] left-[280px]' onClick={()=>(setShow(!show))}>{show ? <FaEyeSlash></FaEyeSlash>  : <FaEye></FaEye>}</span>
                           
                         </div>
+                        <div>
+                                {
+                                    pass && <p className="text-red-400 font-bold">{pass}</p>
+                                }
+                            </div>
                         <div className="form-control mt-6">
                             <button className="btn text-white font-bold bg-[#FF3811]">Register</button>
                         </div>

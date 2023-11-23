@@ -12,6 +12,7 @@ const Login = () => {
    
 
     const[show,setShow]=useState(false)
+    const [error,setError]=useState("")
     const location=useLocation()
     const navigate = useNavigate()
 
@@ -23,6 +24,8 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email,password)
+
+        setError("")
 
         logIn(email,password)
         .then(res=>{
@@ -40,6 +43,7 @@ const Login = () => {
               
         })
         .catch(err=>{
+            setError(err.message)
             console.log(err)
         })
 
@@ -58,6 +62,7 @@ const Login = () => {
               navigate(from,{replace:true});
         })
         .catch(error=>{
+           
             console.log(error)
         })
     }
@@ -86,6 +91,11 @@ const Login = () => {
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
+                            </div>
+                            <div>
+                                {
+                                    error && <p className="text-red-600 font-bold">{error}</p>
+                                }
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn text-white font-bold bg-[#FF3811]">Login</button>
