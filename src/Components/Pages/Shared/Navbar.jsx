@@ -1,8 +1,19 @@
-import {  NavLink } from "react-router-dom";
+import {  Link, NavLink } from "react-router-dom";
 import tech from '../Shared../../../Pages../../../assets/tech-hub-removebg-preview.png'
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 
 const Navbar = () => {
+
+    const {user,logOut}=useContext(AuthContext)
+
+
+    const handleOut = () => {
+        logOut()
+            .then()
+            .catch()
+    }
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -29,7 +40,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                {/* <div>
+                <div>
                         {
                             user?.email ? <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -41,9 +52,13 @@ const Navbar = () => {
                                 </label>
                                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                                     <li>
-                                        <button className="btn btn-sm  btn-ghost">{
+                                        <button className="btn btn-sm  btn-ghost text-blue-600">{
                                             user && <p>{user.displayName}</p>
                                         }</button>
+
+                                    </li>
+                                    <li>
+                                        <button className="btn btn-sm  btn-ghost text-green-600">Dashboard</button>
 
                                     </li>
                                     <li>
@@ -54,10 +69,10 @@ const Navbar = () => {
                             </div>
                                 :
                                 <Link to='/login'>
-                                    <button className="btn btn-sm mr-2  btn-outline btn-warning">Login</button>
+                                    <button className="btn btn-md mr-2  btn-outline btn-primary">Login</button>
                                 </Link>
                         }
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
