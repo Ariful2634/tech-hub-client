@@ -2,6 +2,7 @@ import {  Link, NavLink } from "react-router-dom";
 import tech from '../Shared../../../Pages../../../assets/tech-hub-removebg-preview.png'
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { FaHome } from "react-icons/fa";
 
 
 const Navbar = () => {
@@ -16,7 +17,7 @@ const Navbar = () => {
     }
 
     const links = <>
-        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/'><FaHome></FaHome>Home</NavLink></li>
         <li><NavLink to='/products'>Products</NavLink></li>
     </>
 
