@@ -11,6 +11,7 @@ import Home from './Components/Pages/Home/Home';
 import AuthProvider from './Components/Provider/AuthProvider';
 import Register from './Components/Pages/Register/Register';
 import Login from './Components/Pages/Login/Login';
+import FeatureDetails from './Components/Pages/Home/FeatureDetails';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
       {
         path:'/login',
         element:<Login></Login>
+      },
+      {
+        path:'/featureDetails/:id',
+        element:<FeatureDetails></FeatureDetails>,
+        loader:()=>fetch('http://localhost:5000/featureProduct')
       }
     ]
   },
