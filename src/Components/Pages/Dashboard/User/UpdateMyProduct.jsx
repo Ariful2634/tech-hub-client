@@ -1,10 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
-import { useState } from 'react';
-// import { render } from 'react-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useState } from 'react';
+import { useLoaderData, useParams } from 'react-router-dom';
 
 const KeyCodes = {
     comma: 188,
@@ -13,12 +11,17 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-
-const AddProducts = () => {
+const UpdateMyProduct = () => {
 
     const [tags, setTags] = useState([])
 
-    const { user } = useContext(AuthContext)
+    const updates = useLoaderData()
+    const {id}=useParams()
+    const update = updates.find(updates=>updates._id==id)
+    console.log(update)
+    const {_id}=update
+
+    
 
     const handleDelete = i => {
         setTags(tags.filter((tag, index) => index !== i));
@@ -35,15 +38,14 @@ const AddProducts = () => {
         newTags.splice(newPos, 0, tag);
 
         // re-render
-        setTags(newTags);
+        // setTags(newTags);
     };
 
     const handleTagClick = index => {
         console.log('The tag at index ' + index + ' was clicked');
     };
 
-    const axiosPublic=useAxiosPublic()
-
+    const axiosSecure = useAxiosSecure()
 
     const handleForm = e => {
         e.preventDefault()
@@ -51,21 +53,18 @@ const AddProducts = () => {
         const product_name = form.productName.value;
         const product_image = form.productImage.value;
         const description = form.description.value;
-        const name = form.name.value;
-        const image = form.image.value;
-        const email = form.email.value;
         const links = form.links.value;
-        const product = { product_name, product_image, description, name, image, email, tags, links  }
+        const product = { product_name, product_image, description,  tags, links  }
         console.log(product)
 
-        axiosPublic.post('/addProduct', product)
+        axiosSecure.put(`/update/${_id}`, product)
         .then(res => {
-            if (res.data.insertedId) {
+            if (res.data.modifiedCount > 0) {
                 form.reset()
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "You add product successfully",
+                    title: " Product updated successfully",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -85,13 +84,13 @@ const AddProducts = () => {
                                 <label className="label">
                                     <span className="label-text">Product Name</span>
                                 </label>
-                                <input type="text" placeholder="Name" name="productName" className="input input-bordered border-success" required />
+                                <input type="text" placeholder="Name" name="productName" className="input input-bordered border-success"  />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Product Image</span>
                                 </label>
-                                <input type="text" placeholder="Product Image" name="productImage" className="input input-bordered border-success" required />
+                                <input type="text" placeholder="Product Image" name="productImage" className="input input-bordered border-success"  />
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -100,31 +99,12 @@ const AddProducts = () => {
                                 <textarea className="textarea textarea-success" placeholder="Product Description" name="description"></textarea>
 
                             </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">User Name</span>
-                                </label>
-                                <input type="text" placeholder="Name" name="name" defaultValue={user?.displayName} className="input input-bordered border-success" required />
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">User Image</span>
-                                </label>
-                                <input type="text" placeholder="Image" defaultValue={user?.photoURL} name="image" className="input input-bordered border-success" required />
-
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">User Email</span>
-                                </label>
-                                <input type="email" placeholder="Email" defaultValue={user?.email} name="email" className="input input-bordered border-success" required />
-
-                            </div>
+                        
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Add Tags</span>
                                 </label>
-                                <ReactTags 
+                                <ReactTags name="tags"
                                     tags={tags}
                                     
                                     delimiters={delimiters}
@@ -141,7 +121,7 @@ const AddProducts = () => {
                                 <label className="label">
                                     <span className="label-text">External Links</span>
                                 </label>
-                                <input type="text" placeholder="External Links"  name="links" className="input input-bordered border-success" required />
+                                <input type="text" placeholder="External Links"  name="links" className="input input-bordered border-success" />
 
                             </div>
 
@@ -157,4 +137,4 @@ const AddProducts = () => {
     );
 };
 
-export default AddProducts;
+export default UpdateMyProduct;

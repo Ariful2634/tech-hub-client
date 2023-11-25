@@ -22,6 +22,7 @@ import Dashboard from './Components/Pages/Dashboard/Dashboard';
 import MyProfile from './Components/Pages/Dashboard/User/MyProfile';
 import AddProducts from './Components/Pages/Dashboard/User/AddProducts';
 import MyProduct from './Components/Pages/Dashboard/User/MyProduct';
+import UpdateMyProduct from './Components/Pages/Dashboard/User/UpdateMyProduct';
 
 const queryClient = new QueryClient()
 
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
       {
         path:'myProducts',
         element:<MyProduct></MyProduct>
+      },
+      {
+        path:'updateMyProduct/:id',
+        element:<UpdateMyProduct></UpdateMyProduct>,
+        loader:()=>fetch('http://localhost:5000/addProduct')
       }
     ]
   }

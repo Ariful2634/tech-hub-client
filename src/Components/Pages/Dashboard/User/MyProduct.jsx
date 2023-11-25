@@ -4,6 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 
 const MyProduct = () => {
@@ -24,8 +25,8 @@ const MyProduct = () => {
     // console.log(products)
     return (
         <div>
-            <div className="overflow-x-auto">
-                <table className="table table-zebra">
+            <div className="overflow-x-auto flex lg:flex-row flex-col">
+                <table className="table table-zebra flex lg:flex-row flex-col">
                     {/* head */}
                     <thead>
                         <tr>
@@ -34,16 +35,18 @@ const MyProduct = () => {
                             <th>Status</th>
                             <th>Action</th>
                             <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         {
                             products.map(product=> <tr key={product._id}>
                                 <td>{product.product_name}</td>
-                                <td>n/a</td>
+                                <td> n/a </td>
                                 <td>Pending</td>
-                                <td><GrDocumentUpdate className="text-xl text-green-600"></GrDocumentUpdate></td>
+                                <Link to={`/dashboard/updateMyProduct/${product._id}`}><td><GrDocumentUpdate className="text-xl text-green-600"></GrDocumentUpdate></td></Link>
                                 <td><FaTrash className="text-xl text-red-600"></FaTrash></td>
+                                
                             </tr>)
                         }
                        
