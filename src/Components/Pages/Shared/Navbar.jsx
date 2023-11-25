@@ -1,4 +1,4 @@
-import {  Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import tech from '../Shared../../../Pages../../../assets/tech-hub-removebg-preview.png'
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -7,7 +7,7 @@ import { FaHome } from "react-icons/fa";
 
 const Navbar = () => {
 
-    const {user,logOut}=useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
 
 
     const handleOut = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                <div>
+                    <div>
                         {
                             user?.email ? <div className="dropdown dropdown-end">
                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -59,8 +59,8 @@ const Navbar = () => {
 
                                     </li>
                                     <li>
-                                        <button className="btn btn-sm  btn-ghost text-green-600">Dashboard</button>
-
+                                        <NavLink to='/dashboard/myProfile'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button>
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <button onClick={handleOut} className="btn btn-sm  btn-ghost">Logout</button>

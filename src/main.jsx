@@ -18,6 +18,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import Dashboard from './Components/Pages/Dashboard/Dashboard';
+import MyProfile from './Components/Pages/Dashboard/User/MyProfile';
+import AddProducts from './Components/Pages/Dashboard/User/AddProducts';
 
 const queryClient = new QueryClient()
 
@@ -45,6 +48,21 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:'dashboard',
+    element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    children:[
+      // user related
+      {
+        path:'myProfile',
+        element:<MyProfile></MyProfile>
+      },
+      {
+        path:'addProducts',
+        element:<AddProducts></AddProducts>
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
