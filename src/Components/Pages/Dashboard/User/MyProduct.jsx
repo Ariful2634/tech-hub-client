@@ -5,6 +5,7 @@ import { GrDocumentUpdate } from "react-icons/gr";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const MyProduct = () => {
@@ -12,7 +13,7 @@ const MyProduct = () => {
 
     const axiosSecure = useAxiosSecure()
 
-    const { data: products = [] } = useQuery({
+    const {refetch, data: products = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/addProduct?email=${user?.email}`)
@@ -21,6 +22,38 @@ const MyProduct = () => {
         }
 
     })
+
+    const handleDelete = id=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+              axiosSecure.delete(`/addProduct/${id}`)
+                .then(res=>{
+                    // console.log(data)
+                    if(res.data.deletedCount > 0){
+                        refetch()
+                        Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                              )
+                              
+                    }
+                })
+
+            
+            }
+          })
+    }
+
 
     // console.log(products)
     return (
@@ -44,8 +77,9 @@ const MyProduct = () => {
                                 <td>{product.product_name}</td>
                                 <td> n/a </td>
                                 <td>Pending</td>
-                                <Link to={`/dashboard/updateMyProduct/${product._id}`}><td><GrDocumentUpdate className="text-xl text-green-600"></GrDocumentUpdate></td></Link>
-                                <td><FaTrash className="text-xl text-red-600"></FaTrash></td>
+                                <Link to={`/dashboard/updateMyProduct/${product._id}`}><td><GrDocumentUpdate className="text-xl text-green-600"></GrDocumentUpdate></td>
+                                </Link>
+                                <td onClick={()=>handleDelete(product._id)}><FaTrash className="text-xl text-red-600"></FaTrash></td>
                                 
                             </tr>)
                         }

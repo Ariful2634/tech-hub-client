@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { WithContext as ReactTags } from 'react-tag-input';
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const KeyCodes = {
     comma: 188,
@@ -19,6 +20,7 @@ const AddProducts = () => {
     const [tags, setTags] = useState([])
 
     const { user } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleDelete = i => {
         setTags(tags.filter((tag, index) => index !== i));
@@ -69,6 +71,7 @@ const AddProducts = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                navigate('/dashboard/myProducts')
             }
         })
    
