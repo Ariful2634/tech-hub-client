@@ -12,6 +12,7 @@ import AuthProvider from './Components/Provider/AuthProvider';
 import Register from './Components/Pages/Register/Register';
 import Login from './Components/Pages/Login/Login';
 import FeatureDetails from './Components/Pages/Home/FeatureDetails';
+import PrivateRoute from './Components/Route/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/featureDetails/:id',
-        element:<FeatureDetails></FeatureDetails>,
+        element:<PrivateRoute><FeatureDetails></FeatureDetails></PrivateRoute>,
         loader:()=>fetch('http://localhost:5000/featureProduct')
       }
     ]

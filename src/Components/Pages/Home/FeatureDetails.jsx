@@ -74,7 +74,7 @@ const FeatureDetails = () => {
 
     return (
         <div>
-            <div className="flex flex-col lg:flex-row lg:ml-10 gap-20">
+            <div className="flex flex-col md:flex-row lg:flex-row lg:ml-10 lg:gap-20">
                 <div className="card w-[420px] ml-0 bg-base-100 shadow-xl mt-10">
                     <figure><img className="h-[200px]" src={details.product_image} alt="Shoes" /></figure>
                     <div className="card-body">
@@ -91,9 +91,10 @@ const FeatureDetails = () => {
                 </div>
                 {/* review form */}
                 <div className="flex-1">
+                    <h1 className="text-center mt-4 text-blue-600 font-bold text-2xl">Share Your Opinion</h1>
 
-                    <div className="hero mt-10">
-                        <div className="hero-content w-[420px] flex-col ">
+                    <div className="hero mt-6">
+                        <div className="hero-content w-[420px] md:w-96 lg:w-[420px] flex-col ">
 
                             <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                                 <form onSubmit={handleForm} className="card-body">
