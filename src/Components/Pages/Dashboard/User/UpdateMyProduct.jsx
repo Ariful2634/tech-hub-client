@@ -1,19 +1,14 @@
-import { WithContext as ReactTags } from 'react-tag-input';
+
 import Swal from "sweetalert2";
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { useState } from 'react';
+
 import { useLoaderData, useParams } from 'react-router-dom';
 
-const KeyCodes = {
-    comma: 188,
-    enter: 13
-};
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const UpdateMyProduct = () => {
 
-    const [tags, setTags] = useState([])
+    
 
     const updates = useLoaderData()
     const {id}=useParams()
@@ -23,27 +18,7 @@ const UpdateMyProduct = () => {
 
     
 
-    const handleDelete = i => {
-        setTags(tags.filter((tag, index) => index !== i));
-    };
-
-    const handleAddition = tag => {
-        setTags([...tags, tag]);
-    };
-
-    const handleDrag = (tag, currPos, newPos) => {
-        const newTags = tags.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        // re-render
-        // setTags(newTags);
-    };
-
-    const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
-    };
+    
 
     const axiosSecure = useAxiosSecure()
 
@@ -54,7 +29,7 @@ const UpdateMyProduct = () => {
         const product_image = form.productImage.value;
         const description = form.description.value;
         const links = form.links.value;
-        const product = { product_name, product_image, description,  tags, links  }
+        const product = { product_name, product_image, description, links  }
         console.log(product)
 
         axiosSecure.put(`/update/${_id}`, product)
@@ -84,44 +59,28 @@ const UpdateMyProduct = () => {
                                 <label className="label">
                                     <span className="label-text">Product Name</span>
                                 </label>
-                                <input type="text" placeholder="Name" name="productName" className="input input-bordered border-success"  />
+                                <input type="text" placeholder="Name" name="productName" defaultValue={update.product_name} className="input input-bordered border-success"  />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Product Image</span>
                                 </label>
-                                <input type="text" placeholder="Product Image" name="productImage" className="input input-bordered border-success"  />
+                                <input type="text" placeholder="Product Image" defaultValue={update.product_image} name="productImage" className="input input-bordered border-success"  />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Product Description</span>
                                 </label>
-                                <textarea className="textarea textarea-success" placeholder="Product Description" name="description"></textarea>
+                                <textarea className="textarea textarea-success" defaultValue={update.description} placeholder="Product Description" name="description"></textarea>
 
                             </div>
                         
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Add Tags</span>
-                                </label>
-                                <ReactTags name="tags"
-                                    tags={tags}
-                                    
-                                    delimiters={delimiters}
-                                    handleDelete={handleDelete}
-                                    handleAddition={handleAddition}
-                                    handleDrag={handleDrag}
-                                    handleTagClick={handleTagClick}
-                                    inputFieldPosition="bottom"
-                                    autocomplete
-                                />
-
-                            </div>
+                            
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">External Links</span>
                                 </label>
-                                <input type="text" placeholder="External Links"  name="links" className="input input-bordered border-success" />
+                                <input type="text" placeholder="External Links" defaultValue={update.links}  name="links" className="input input-bordered border-success" />
 
                             </div>
 

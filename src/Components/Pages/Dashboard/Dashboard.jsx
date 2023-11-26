@@ -1,34 +1,40 @@
+import { useContext, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 // import { Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
+
+    const [isModerator] = useState(true)
+    const {user}=useContext(AuthContext)
+
     return (
         // <div className="flex max-w-6xl mx-auto">
-            // <div className="w-64 min-h-screen bg-orange-400">
-            //     <ul className="menu text-white">
-            //         <li>
-            //             <NavLink to='/dashboard/myProfile'> My Profile</NavLink>
-            //         </li>
-            //         <li>
-            //             <NavLink to='/dashboard/addProducts'> Add Products</NavLink>
-            //         </li>
-            //         <li>
-            //             <NavLink to='/dashboard/myProducts'> My Products</NavLink>
-            //         </li>
-            //         {/* shared */}
-            //         <div className="divider"></div>
-            //         <li>
-            //             <NavLink to={'/'}><FaHome></FaHome>Home</NavLink>
-            //         </li>
-            //     </ul>
+        // <div className="w-64 min-h-screen bg-orange-400">
+        //     <ul className="menu text-white">
+        //         <li>
+        //             <NavLink to='/dashboard/myProfile'> My Profile</NavLink>
+        //         </li>
+        //         <li>
+        //             <NavLink to='/dashboard/addProducts'> Add Products</NavLink>
+        //         </li>
+        //         <li>
+        //             <NavLink to='/dashboard/myProducts'> My Products</NavLink>
+        //         </li>
+        //         {/* shared */}
+        //         <div className="divider"></div>
+        //         <li>
+        //             <NavLink to={'/'}><FaHome></FaHome>Home</NavLink>
+        //         </li>
+        //     </ul>
 
-            // </div>
-            // <div className="flex-1 p-6 ml-16">
-            //     <Outlet></Outlet>
-            // </div>
+        // </div>
+        // <div className="flex-1 p-6 ml-16">
+        //     <Outlet></Outlet>
+        // </div>
         // </div>
 
         <div className="drawer lg:drawer-open">
@@ -45,25 +51,41 @@ const Dashboard = () => {
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
 
                 <div className="w-64 min-h-screen bg-orange-400">
-                <ul className="menu text-white">
-                    <li>
-                        <NavLink to='/dashboard/myProfile'> My Profile</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashboard/addProducts'> Add Products</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashboard/myProducts'> My Products</NavLink>
-                    </li>
-                    {/* shared */}
-                    <div className="divider"></div>
-                    <li>
-                        <NavLink to={'/'}><FaHome></FaHome>Home</NavLink>
-                    </li>
-                </ul>
+                    <ul className="menu text-white">
+                        {
+                            isModerator && <>
+                              <li>
+                                        <NavLink to='/dashboard/productReviewQueue'> Product Review Queue</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/dashboard/reportedContents'> Reported Contents</NavLink>
+                                    </li>
 
-            </div>
-            {/* <div className="flex-1 p-6 ml-16">
+                            </>   }
+                                {
+                                    user && <>
+                                    <li>
+                                        <NavLink to='/dashboard/myProfile'> My Profile</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/dashboard/addProducts'> Add Products</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/dashboard/myProducts'> My Products</NavLink>
+                                    </li>
+                                    
+                                </>
+                                }
+                      
+                        {/* shared */}
+                        <div className="divider"></div>
+                                    <li>
+                                        <NavLink to={'/'}><FaHome></FaHome>Home</NavLink>
+                                    </li>
+                    </ul>
+
+                </div>
+                {/* <div className="flex-1 p-6 ml-16">
                 <Outlet></Outlet>
             </div> */}
             </div>

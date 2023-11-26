@@ -23,7 +23,7 @@ const Feature = ({ product }) => {
                     <figure><img className="h-[200px]" src={product_image} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Name: {product_name}</h2>
-                        <p className="space-x-3"><span className="font-bold text-blue-600">Tags:</span> <span>#{tags[0]}</span> <span>#{tags[1]}</span> <span>#{tags[2]}</span></p>
+                        <p className="space-x-3"><span className="font-bold text-blue-600">Tags:</span> <span>#{tags}</span> </p>
                         <div className="card-actions justify-between items-center mt-4">
                             <p>{timestamp}</p>
                             <button className="btn btn-primary"><GiVote></GiVote>Upvote </button>

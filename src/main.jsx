@@ -23,6 +23,7 @@ import MyProfile from './Components/Pages/Dashboard/User/MyProfile';
 import AddProducts from './Components/Pages/Dashboard/User/AddProducts';
 import MyProduct from './Components/Pages/Dashboard/User/MyProduct';
 import UpdateMyProduct from './Components/Pages/Dashboard/User/UpdateMyProduct';
+import ProductReviewQueue from './Components/Pages/Dashboard/Moderator/ProductReviewQueue';
 
 const queryClient = new QueryClient()
 
@@ -71,6 +72,12 @@ const router = createBrowserRouter([
         path:'updateMyProduct/:id',
         element:<UpdateMyProduct></UpdateMyProduct>,
         loader:()=>fetch('http://localhost:5000/addProduct')
+      },
+
+      // moderator related
+      {
+        path:'productReviewQueue',
+        element:<ProductReviewQueue></ProductReviewQueue>
       }
     ]
   }
