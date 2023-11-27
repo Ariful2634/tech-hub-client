@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 // import { useState } from "react";
 
 
@@ -28,34 +28,22 @@ const ProductReviewQueue = () => {
     const handleFeatured = (id) => {
         // console.log(id)
 
-        // const featured = feat.find(data => data._id == id)
-        // console.log(featured)
-        // axiosSecure.post('/featureProduct', featured)
-        //     .then(res => {
-        //         console.log(res.data)
-        //         if (res.data.insertedId) {
-        //             Swal.fire(
-        //                 'Congratulations',
-        //                 `${featured.product_name} Successfully added to the featured product`,
-        //                 'success'
-        //             )
-        //         }
-        //     })
-        console.log(id)
+        
+        // console.log(id)
         const featured = { mark: 'featured' }
         console.log(featured)
-        // axiosSecure.put(`/addProduct/mark/${id}`, featured)
-        //     .then(res => {
-        //         console.log(res.data)
-        //         if (res.data.insertedId) {
-        //                         Swal.fire(
-        //                             'Congratulations',
-        //                             `${featured.product_name} Successfully added to the featured product`,
-        //                             'success'
-        //                         )
-        //                     }
-        //         refetch()
-        //     })
+        axiosSecure.put(`/addProduct/mark/${id}`, featured)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.insertedId) {
+                                Swal.fire(
+                                    'Congratulations',
+                                    `${featured.product_name} Successfully added to the featured product`,
+                                    'success'
+                                )
+                            }
+                refetch()
+            })
     }
 
     const handleAccept = (id) => {
@@ -111,25 +99,25 @@ const ProductReviewQueue = () => {
                                 <td>
                                     {
                                         product.mark === 'featured' ? <button  className="btn btn-accent btn-disabled">Featured</button> :
-                                        <button onClick={() => handleFeatured(product._id)} className="btn btn-accent">Featured</button>
+                                        <button onClick={() => handleFeatured(product._id)} className="btn btn-accent bg-gradient-to-r from-cyan-500 to-blue-500">Featured</button>
                                     }
                                     </td>
                                 <td>
                                     {
                                         product.status === 'accept' ? <button className="btn btn-accent btn-disabled">Accept</button> :
-                                            <button onClick={() => handleAccept(product._id)} className="btn btn-accent">Accept</button>
+                                            <button onClick={() => handleAccept(product._id)} className="btn rounded-2xl font-bold bg-gradient-to-r from-yellow-500 to-green-500">Accept</button>
                                     }
                                 </td>
                                 <td>
                                     {
                                         product.status === 'reject' ? <button className="btn btn-accent btn-disabled">Reject</button> :
-                                            <button onClick={() => handleReject(product._id)} className="btn btn-accent">Reject</button>
+                                            <button onClick={() => handleReject(product._id)} className="btn bg-gradient-to-r from-red-500 to-yellow-500 text-white rounded-2xl">Reject</button>
 
                                     }
                                 </td>
 
                                 {
-                                    product.status === 'ending' ? <td>{product.status}</td> :
+                                    product.status === 'Pending' ? <td>{product.status}</td> :
                                         <td> {product.status === 'accept' && "Accepted"}
                                             {product.status === 'reject' && "Rejected"}
 

@@ -76,7 +76,15 @@ const MyProduct = () => {
                             products.map(product=> <tr key={product._id}>
                                 <td>{product.product_name}</td>
                                 <td> n/a </td>
-                                <td>Pending</td>
+                                <td>
+                                {
+                                    product.status === 'Pending' ? <td>{product.status}</td> :
+                                        <td> {product.status === 'accept' && "Accepted"}
+                                            {product.status === 'reject' && "Rejected"}
+
+                                        </td>
+                                }
+                                </td>
                                 <Link to={`/dashboard/updateMyProduct/${product._id}`}><td><GrDocumentUpdate className="text-xl text-green-600"></GrDocumentUpdate></td>
                                 </Link>
                                 <td onClick={()=>handleDelete(product._id)}><FaTrash className="text-xl text-red-600"></FaTrash></td>
