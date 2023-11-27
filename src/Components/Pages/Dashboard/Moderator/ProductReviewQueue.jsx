@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 // import { useState } from "react";
 
 
@@ -44,18 +44,18 @@ const ProductReviewQueue = () => {
         console.log(id)
         const featured = { mark: 'featured' }
         console.log(featured)
-        axiosSecure.put(`/addProduct/mark/${id}`, featured)
-            .then(res => {
-                console.log(res.data)
-                if (res.data.insertedId) {
-                                Swal.fire(
-                                    'Congratulations',
-                                    `${featured.product_name} Successfully added to the featured product`,
-                                    'success'
-                                )
-                            }
-                refetch()
-            })
+        // axiosSecure.put(`/addProduct/mark/${id}`, featured)
+        //     .then(res => {
+        //         console.log(res.data)
+        //         if (res.data.insertedId) {
+        //                         Swal.fire(
+        //                             'Congratulations',
+        //                             `${featured.product_name} Successfully added to the featured product`,
+        //                             'success'
+        //                         )
+        //                     }
+        //         refetch()
+        //     })
     }
 
     const handleAccept = (id) => {
