@@ -87,7 +87,7 @@ const MyProduct = () => {
                                 </td>
                                 <Link to={`/dashboard/updateMyProduct/${product._id}`}><td><GrDocumentUpdate className="text-lg mt-3 text-green-600"></GrDocumentUpdate></td>
                                 </Link>
-                                <td onClick={()=>handleDelete(product._id)}><FaTrash className="text-xl text-red-600"></FaTrash></td>
+                                <td ><button onClick={()=>handleDelete(product._id)} className="btn btn-sm"><FaTrash className="text-xl text-red-600"></FaTrash></button></td>
                                 
                             </tr>)
                         }

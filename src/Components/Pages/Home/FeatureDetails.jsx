@@ -34,19 +34,16 @@ const FeatureDetails = () => {
     const handleReport = id=>{
         // console.log(id)
         const reported = {
-            product_name:details.product_name,
-            product_image:details.product_image,
-            description:details.description,
-            tags:details.tags,
-            links:details.links,
+           
             status:'reported',
-            reportId:id
+
+          
         }
         console.log(reported)
-        axiosPublic.post('/report',reported)
+        axiosPublic.put(`/addProduct/status/${id}`,reported)
         .then(res=>{
             console.log(res.data)
-            if(res.data.insertedId){
+            if(res.data.modifiedCount > 0){
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -94,10 +91,10 @@ const FeatureDetails = () => {
         .then(res => {
             setReview(res.data)
         })
-    // console.log(review)
+    console.log(review)
 
     const getReview = review.filter(view => view.product_name === details.product_name)
-    // console.log(getReview)
+    console.log(getReview)
 
     return (
         <div>
@@ -112,7 +109,10 @@ const FeatureDetails = () => {
                         <div className="card-actions justify-between mt-4">
 
                             <button className="btn btn-primary"><GiVote></GiVote>Upvote </button>
-                            <button onClick={()=>handleReport(details._id)} className="btn btn-error"><MdOutlineReport></MdOutlineReport>Report</button>
+                            {
+                                details.status === 'reported' ? <button className="btn btn-error btn-disabled"><MdOutlineReport></MdOutlineReport>Report</button> :
+                                <button onClick={()=>handleReport(details._id)} className="btn btn-error"><MdOutlineReport></MdOutlineReport>Report</button>
+                            }
 
                         </div>
                     </div>
@@ -165,7 +165,11 @@ const FeatureDetails = () => {
             </div>
             {/* review */}
             <div>
-                <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+                
+                   
+                   {
+                    getReview.length > 0 ? 
+                    <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
                     {
                         getReview.map(rev => <SwiperSlide key={rev._id}>
                             <div className="py-16 mx-24 space-y-3 flex flex-col items-center">
@@ -182,7 +186,11 @@ const FeatureDetails = () => {
                     }
 
 
-                </Swiper>
+                </Swiper>  :
+                    <p className="text-center font-bold text-4xl text-red-600 mt-20">There is no review yet</p>
+                   } 
+                
+                
             </div>
         </div>
     );

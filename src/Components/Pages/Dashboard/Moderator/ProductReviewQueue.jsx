@@ -120,6 +120,7 @@ const ProductReviewQueue = () => {
                                     product.status === 'Pending' ? <td>{product.status}</td> :
                                         <td> {product.status === 'accept' && "Accepted"}
                                             {product.status === 'reject' && "Rejected"}
+                                            {product.status === 'reported' && "Reported"}
 
                                         </td>
                                 }
