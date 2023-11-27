@@ -66,8 +66,8 @@ const MyProduct = () => {
                             <th>Product Name</th>
                             <th>Number of votes</th>
                             <th>Status</th>
-                            <th>Action</th>
-                            <th>Action</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                             
                         </tr>
                     </thead>

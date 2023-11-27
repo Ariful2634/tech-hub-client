@@ -31,6 +31,33 @@ const FeatureDetails = () => {
 
     const details = load.find(detail => detail._id == id)
 
+    const handleReport = id=>{
+        // console.log(id)
+        const reported = {
+            product_name:details.product_name,
+            product_image:details.product_image,
+            description:details.description,
+            tags:details.tags,
+            links:details.links,
+            status:'reported',
+            reportId:id
+        }
+        console.log(reported)
+        axiosPublic.post('/report',reported)
+        .then(res=>{
+            console.log(res.data)
+            if(res.data.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "You Reported the product",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+        })
+    }
+
     const handleForm = e => {
         e.preventDefault()
         const form = e.target;
@@ -67,10 +94,10 @@ const FeatureDetails = () => {
         .then(res => {
             setReview(res.data)
         })
-    console.log(review)
+    // console.log(review)
 
     const getReview = review.filter(view => view.product_name === details.product_name)
-    console.log(getReview)
+    // console.log(getReview)
 
     return (
         <div>
@@ -79,12 +106,13 @@ const FeatureDetails = () => {
                     <figure><img className="h-[200px]" src={details.product_image} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">Name: {details.product_name}</h2>
-                        <p>{details.description}</p>
-                        <p className="space-x-3"><span className="font-bold text-blue-600">Tags:</span> <span>#{details.tags[0]}</span> <span>#{details.tags[1]}</span> <span>#{details.tags[2]}</span></p>
+                        <p className="font-medium">{details.description}</p>
+                        <p className="space-x-3"><span className="font-bold text-blue-600">Tags:</span> #{details.tags}</p>
+                        <p><span className="font-bold">External Links:</span> {details.links}</p>
                         <div className="card-actions justify-between mt-4">
 
                             <button className="btn btn-primary"><GiVote></GiVote>Upvote </button>
-                            <button className="btn btn-error"><MdOutlineReport></MdOutlineReport>Report</button>
+                            <button onClick={()=>handleReport(details._id)} className="btn btn-error"><MdOutlineReport></MdOutlineReport>Report</button>
 
                         </div>
                     </div>
