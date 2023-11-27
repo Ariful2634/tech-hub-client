@@ -8,12 +8,16 @@ const FeatureProduct = () => {
     const axiosPublic = useAxiosPublic()
     const [feature, setFeature]=useState([])
     const [asc,setAsc]=useState(true)
+    const mark = 'featured'
 
-    axiosPublic.get(`/featureProduct?sort=${asc ? 'asc' : 'des'}`)
+    axiosPublic.get(`/addProduct?sort=${asc ? 'asc' : 'des'}`)
     .then(res=>{
         setFeature(res.data)
     })
-    // console.log(feature)
+    console.log(feature)
+
+    const featured = feature.filter(feat=>feat.mark==mark)
+    console.log(featured)
 
    
 
@@ -25,7 +29,7 @@ const FeatureProduct = () => {
             </div>
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:ml-48 ml-5 lg:ml-28">
             {
-                feature.map(product=><Feature key={product._id} product={product}></Feature>)
+                featured.map(product=><Feature key={product._id} product={product}></Feature>)
             }
            </div>
         </div>
