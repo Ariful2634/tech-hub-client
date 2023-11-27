@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 // import SocialLogIn from "../Login/SocialLogIn";
 import { AuthContext } from "../../Provider/AuthProvider";
+import SocialLogin from "../Login/SocialLogin";
 
 
 const Register = () => {
@@ -43,8 +44,8 @@ const Register = () => {
                                     reset()
                                     Swal.fire({
                                         position: "top-end",
-                                        icon: "User created successfully",
-                                        title: "Your work has been saved",
+                                        icon: "Success",
+                                        title: "User created successfully",
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
@@ -68,7 +69,7 @@ const Register = () => {
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col w-96">
-              
+              <p className="font-bold text-2xl">Register Now</p>
                 <div className="card flex-shrink-0 w-full  max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                         <div className="form-control">
@@ -104,12 +105,12 @@ const Register = () => {
                             <button className="btn btn-primary">Register</button>
                         </div>
                         <div>
-                            <p>Do not have an account? <Link to='/login'>Login</Link></p>
+                            <p className='text-center mb-4'>Do not have an account? <Link className='text-orange-600 font-bold' to='/login'>Login</Link></p>
                         </div>
                     </form>
-                    {/* <div>
-                        <SocialLogIn></SocialLogIn>
-                    </div> */}
+                    <div className="mb-4">
+                        <SocialLogin></SocialLogin>
+                    </div>
                 </div>
             </div>
         </div>
