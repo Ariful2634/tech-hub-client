@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Trending from "./Trending";
+import { Link } from "react-router-dom";
 
 
 const TrendingProduct = () => {
@@ -27,7 +28,7 @@ const TrendingProduct = () => {
                 }
             </div>
             <div className="flex justify-center mt-8">
-                <button className="btn">See All Products</button>
+                <Link to='/products'><button className="btn">See All Products</button></Link>
             </div>
         </div>
     );

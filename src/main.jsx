@@ -24,6 +24,7 @@ import AddProducts from './Components/Pages/Dashboard/User/AddProducts';
 import MyProduct from './Components/Pages/Dashboard/User/MyProduct';
 import UpdateMyProduct from './Components/Pages/Dashboard/User/UpdateMyProduct';
 import ProductReviewQueue from './Components/Pages/Dashboard/Moderator/ProductReviewQueue';
+import Products from './Components/Pages/Home/Products';
 
 const queryClient = new QueryClient()
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         path:'/featureDetails/:id',
         element:<PrivateRoute><FeatureDetails></FeatureDetails></PrivateRoute>,
         loader:()=>fetch('http://localhost:5000/featureProduct')
+      },
+      {
+        path:'products',
+        element:<Products></Products>
       }
     ]
   },
