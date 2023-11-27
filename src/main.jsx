@@ -26,6 +26,7 @@ import UpdateMyProduct from './Components/Pages/Dashboard/User/UpdateMyProduct';
 import ProductReviewQueue from './Components/Pages/Dashboard/Moderator/ProductReviewQueue';
 import Products from './Components/Pages/Home/Products';
 import ReportedContents from './Components/Pages/Dashboard/Moderator/ReportedContents';
+import AllUsers from './Components/Pages/Dashboard/Admin/AllUsers';
 
 const queryClient = new QueryClient()
 
@@ -88,6 +89,12 @@ const router = createBrowserRouter([
       {
         path:'reportedContents',
         element:<ReportedContents></ReportedContents>
+      },
+
+      // admin related
+      {
+        path:'manageUsers',
+        element:<AllUsers></AllUsers>
       }
     ]
   }

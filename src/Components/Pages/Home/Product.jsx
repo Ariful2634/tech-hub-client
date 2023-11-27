@@ -17,7 +17,7 @@ const Product = ({prod}) => {
                     <p>{timestamp}</p>
                 </div>
                 <div className="text-center mt-4">
-                    <button className="btn font-bold bg-gradient-to-r from-pink-500 to-pink-300">Upvote</button>
+                    <button className="btn font-bold w-full bg-gradient-to-r from-pink-500 to-pink-300">Upvote</button>
                 </div>
             </div>
         </div>
