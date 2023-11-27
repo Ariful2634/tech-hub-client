@@ -24,6 +24,9 @@ const FeatureDetails = () => {
 
     const { user } = useContext(AuthContext)
     const axiosPublic = useAxiosPublic()
+    
+
+    
 
     const load = useLoaderData()
     // console.log(load)
@@ -31,6 +34,8 @@ const FeatureDetails = () => {
     // console.log(id)
 
     const details = load.find(detail => detail._id == id)
+    const mail = user?.email === details?.email;
+    console.log(mail)
 
     const handleReport = id=>{
         // console.log(id)
@@ -100,6 +105,26 @@ const FeatureDetails = () => {
     const getReview = review.filter(view => view.product_name === details.product_name)
     console.log(getReview)
 
+    const handleUpvote = id=>{
+        const upvoted = { upvote: 1 }
+        console.log(upvoted)
+        axiosPublic.put(`/addProduct/upvote/${id}`, upvoted)
+            .then(res => {
+                console.log(res.data)
+                if(res.data.modifiedCount > 0){
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "You vote this successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+                // refetch()
+            })
+        console.log(id)
+    }
+
     return (
         <div>
             <div className="flex flex-col md:flex-row lg:flex-row lg:ml-10 lg:gap-20">
@@ -112,10 +137,13 @@ const FeatureDetails = () => {
                         <p><span className="font-bold">External Links:</span> {details.links}</p>
                         <div className="card-actions justify-between mt-4">
 
-                            <button className="btn btn-primary"><GiVote></GiVote>Upvote </button>
+                        {
+                            details.upvoted || mail || !user? <button  className="btn text-blue-600 w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300 " disabled><GiVote></GiVote>Upvote ({details.upvoted})</button> :
+                            <button onClick={()=>handleUpvote(details._id)} className="btn text-white w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300"><GiVote></GiVote>Upvote ({details.upvoted})</button>
+                           }
                             {
                                 details.status === 'reported' ? <button className="btn btn-error btn-disabled"><MdOutlineReport></MdOutlineReport>Report</button> :
-                                <button onClick={()=>handleReport(details._id)} className="btn btn-error"><MdOutlineReport></MdOutlineReport>Report</button>
+                                <button onClick={()=>handleReport(details._id)} className="btn btn-error w-full"><MdOutlineReport></MdOutlineReport>Report</button>
                             }
 
                         </div>

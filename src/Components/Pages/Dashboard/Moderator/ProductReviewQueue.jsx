@@ -98,19 +98,19 @@ const ProductReviewQueue = () => {
                                 <td> <Link to={`/featureDetails/${product._id}`}><button className="btn btn-accent">View Details</button></Link> </td>
                                 <td>
                                     {
-                                        product.mark === 'featured' ? <button  className="btn btn-accent btn-disabled">Featured</button> :
+                                        product.mark === 'featured' ? <button  className="btn btn-accent " disabled>Featured</button> :
                                         <button onClick={() => handleFeatured(product._id)} className="btn btn-accent bg-gradient-to-r from-cyan-500 to-blue-500">Featured</button>
                                     }
                                     </td>
                                 <td>
                                     {
-                                        product.status === 'accept' ? <button className="btn btn-accent btn-disabled">Accept</button> :
+                                        product.status === 'accept' ? <button className="btn btn-accent " disabled>Accept</button> :
                                             <button onClick={() => handleAccept(product._id)} className="btn rounded-2xl font-bold bg-gradient-to-r from-yellow-500 to-green-500">Accept</button>
                                     }
                                 </td>
                                 <td>
                                     {
-                                        product.status === 'reject' ? <button className="btn btn-accent btn-disabled">Reject</button> :
+                                        product.status === 'reject' ? <button className="btn btn-accent " disabled>Reject</button> :
                                             <button onClick={() => handleReject(product._id)} className="btn bg-gradient-to-r from-red-500 to-yellow-500 text-white rounded-2xl">Reject</button>
 
                                     }

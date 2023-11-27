@@ -4,12 +4,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { FaHome } from "react-icons/fa";
 import useAdmin from "../../hooks/useAdmin";
+import useModerator from "../../hooks/useModerator";
 
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
     const [isAdmin] = useAdmin()
+    const [isModerator]=useModerator()
 
 
     const handleOut = () => {
@@ -62,9 +64,12 @@ const Navbar = () => {
                                     </li>
                                     <li>
                                         {
-                                            user && isAdmin && <NavLink to='/dashboard/adminHome'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button></NavLink>
+                                            user && isAdmin && !isModerator && <NavLink to='/dashboard/manageUsers'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button></NavLink>
                                         }
-                                        {user && !isAdmin && <NavLink to='/dashboard/manageUsers'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button>
+                                        {user && isModerator && !isAdmin && <NavLink to='/dashboard/productReviewQueue'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button>
+                                        </NavLink>
+                                        }
+                                        {user && !isAdmin && !isModerator && <NavLink to='/dashboard/myProfile'><button className="btn btn-sm  btn-ghost ml-10 text-green-600">Dashboard</button>
                                         </NavLink>
                                         }
                                     </li>

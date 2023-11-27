@@ -1,17 +1,19 @@
-import { useContext, useState } from "react";
+// import {  useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
-import { AuthContext } from "../../Provider/AuthProvider";
+// import { AuthContext } from "../../Provider/AuthProvider";
 import useAdmin from "../../hooks/useAdmin";
+import useModerator from "../../hooks/useModerator";
 
 // import { Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
 
-    const [isModerator] = useState(true)
+    const [isModerator] = useModerator()
     const [isAdmin] = useAdmin()
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
+    console.log(isModerator,isAdmin)
 
     return (
 
@@ -33,15 +35,16 @@ const Dashboard = () => {
                     <ul className="menu text-white">
 
                         {
-                            isAdmin && <>
+                            isAdmin ? <>
                                 <li>
                                     <NavLink to='/dashboard/manageUsers'> Manage Users</NavLink>
                                 </li>
                             </>
-                        }
+                        
+                        :
 
-                        {
-                            isModerator && <>
+                        
+                            isModerator ? <>
                                 <li>
                                     <NavLink to='/dashboard/productReviewQueue'> Product Review Queue</NavLink>
                                 </li>
@@ -49,9 +52,10 @@ const Dashboard = () => {
                                     <NavLink to='/dashboard/reportedContents'> Reported Contents</NavLink>
                                 </li>
 
-                            </>}
-                        {
-                            user && <>
+                            </>
+                            :
+                        
+                             <>
                                 <li>
                                     <NavLink to='/dashboard/myProfile'> My Profile</NavLink>
                                 </li>

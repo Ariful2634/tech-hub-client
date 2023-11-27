@@ -36,6 +36,24 @@ const AllUsers = () => {
         })
     }
 
+    const handleMakeModerator = id=>{
+        console.log('click')
+        axiosSecure.patch(`/users/moderator/${id}`)
+        .then(res=>{
+            console.log(res.data)
+            if(res.data.modifiedCount > 0){
+                refetch()
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: `${users.name} is an Admin Now !`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+        })
+    }
+
     const handleDelete = id=>{
         console.log(id)
         Swal.fire({
@@ -71,8 +89,8 @@ const AllUsers = () => {
     return (
         <div>
         <div className="flex justify-evenly">
-            <h2 className="text-3xl">All Users: </h2>
-            <h2 className="text-3xl">Total Users: {users.length}</h2>
+            
+            <h2 className="text-3xl mb-6">Total Users: {users.length}</h2>
         </div>
         <div className="overflow-x-auto w-full">
             <table className="table table-zebra">
@@ -82,7 +100,8 @@ const AllUsers = () => {
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th>Admin</th>
+                        <th>Moderator</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -93,7 +112,12 @@ const AllUsers = () => {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>
-                           { user.role == 'admin' ? 'Admin' : <button onClick={()=>handleMakeAdmin(user._id)}  className="btn bg-orange-600  btn-lg">
+                           { user.role == 'admin' ? 'Admin' : <button onClick={()=>handleMakeAdmin(user._id)}  className="btn bg-blue-600  btn-lg">
+                                    <FaUsers className="text-white"></FaUsers>
+                                </button>}
+                            </td>
+                            <td>
+                           { user.role == 'moderator' ? 'Moderator' : <button onClick={()=>handleMakeModerator(user._id)}  className="btn bg-green-600  btn-lg">
                                     <FaUsers className="text-white"></FaUsers>
                                 </button>}
                             </td>
