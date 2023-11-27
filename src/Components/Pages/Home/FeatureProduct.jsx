@@ -1,23 +1,30 @@
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Feature from "./Feature";
+import { useQuery } from "@tanstack/react-query";
 
 
 const FeatureProduct = () => {
 
     const axiosPublic = useAxiosPublic()
-    const [feature, setFeature]=useState([])
+    
     const [asc,setAsc]=useState(true)
     const mark = 'featured'
 
-    axiosPublic.get(`/addProduct?sort=${asc ? 'asc' : 'des'}`)
-    .then(res=>{
-        setFeature(res.data)
+    
+
+    const {  data: feature = [] } = useQuery({
+        queryKey: ['feature'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/addProduct?sort=${asc ? 'asc' : 'des'}`)
+            return res.data
+
+        }
+
     })
-    console.log(feature)
 
     const featured = feature.filter(feat=>feat.mark==mark)
-    console.log(featured)
+    // console.log(featured)
 
    
 

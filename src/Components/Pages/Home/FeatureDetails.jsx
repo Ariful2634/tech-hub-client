@@ -1,7 +1,7 @@
 import { GiVote } from "react-icons/gi";
 import { useLoaderData, useParams } from "react-router-dom";
 import { MdOutlineReport } from "react-icons/md";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 // import axios from "axios";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { useQuery } from "@tanstack/react-query";
 
 
 
@@ -85,13 +86,16 @@ const FeatureDetails = () => {
 
 
 
-    const [review, setReview] = useState([])
+    
+    const {  data: review = [] } = useQuery({
+        queryKey: ['review'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/reviews')
+            return res.data
 
-    axiosPublic.get('/reviews')
-        .then(res => {
-            setReview(res.data)
-        })
-    console.log(review)
+        }
+
+    })
 
     const getReview = review.filter(view => view.product_name === details.product_name)
     console.log(getReview)
