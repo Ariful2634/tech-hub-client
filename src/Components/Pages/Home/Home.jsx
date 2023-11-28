@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import CouponSlider from "./CouponSlider";
 import FeatureProduct from "./FeatureProduct";
 import TrendingProduct from "./Trending/TrendingProduct";
 
@@ -10,7 +11,7 @@ const Home = () => {
            <Banner></Banner>
            <FeatureProduct></FeatureProduct>
            <TrendingProduct></TrendingProduct>
-
+            <CouponSlider></CouponSlider>
         </div>
     );
 };
