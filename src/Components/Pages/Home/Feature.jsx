@@ -46,7 +46,7 @@ const Feature = ({ product, refetch }) => {
                         <p>{timestamp}</p>
                         {voteMail || mail || !user ? (
                             <Link to="/login">
-                                <button className="btn text-blue-600 w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300 " disabled>
+                                <button className="btn text-blue-600 w-full mt-4 " disabled >
                                     <GiVote />
                                     Upvote ({upvoted})
                                 </button>

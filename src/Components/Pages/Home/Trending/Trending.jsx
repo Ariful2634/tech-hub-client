@@ -56,7 +56,7 @@ const Trending = ({product,refetch}) => {
                         <div className="card-actions justify-between mt-4 items-center">
                             <p>{timestamp}</p>
                             {
-                           voteMail ||  mail || !user?  <Link to='/login'><button  className="btn text-blue-600 w-full  mt-4 bg-gradient-to-r from-cyan-600 to-pink-300 " disabled><GiVote></GiVote>Upvote ({upvoted})</button></Link> :
+                           voteMail ||  mail || !user?  <Link to='/login'><button  className="btn text-blue-600 w-full  mt-4  " disabled><GiVote></GiVote>Upvote ({upvoted})</button></Link> :
                             <button onClick={()=>handleUpvote(_id)} className="btn text-white w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300"><GiVote></GiVote>Upvote ({upvoted})</button>
                            }
 
