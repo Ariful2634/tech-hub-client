@@ -9,7 +9,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { useContext } from "react";
 // import { AuthContext } from "../../Provider/AuthProvider";
 
-const Feature = ({ product }) => {
+const Feature = ({ product,refetch }) => {
 
     const {user}=useContext(AuthContext)
     // const [count,setCount]=useState(0)
@@ -17,17 +17,22 @@ const Feature = ({ product }) => {
     const mail = user?.email === product?.email;
     console.log(mail)
 
-    const { _id, product_image, product_name, tags, timestamp, upvoted } = product
+    const { _id, product_image, product_name, tags, timestamp, upvoted,voteEmail } = product
+
+    const voteMail = user?.email===voteEmail
+
     const axiosPublic = useAxiosPublic()
 
 
     const handleUpvote = id=>{
-        const upvoted = { upvote: 1 }
-        console.log(upvoted)
-        axiosPublic.put(`/addProduct/upvote/${id}`, upvoted)
+        // let upvoted = 0
+        const upvote = { upvote: upvoted + 1, voteEmail:user?.email }
+        console.log(upvote)
+        axiosPublic.put(`/addProduct/upvote/${id}`, upvote)
             .then(res => {
                 console.log(res.data)
                 if(res.data.modifiedCount > 0){
+                    refetch()
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -36,10 +41,12 @@ const Feature = ({ product }) => {
                         timer: 1500
                     });
                 }
-                // refetch()
+                
             })
         console.log(id)
     }
+
+   
 
 
     return (
@@ -53,7 +60,7 @@ const Feature = ({ product }) => {
                         <div className="card-actions justify-between items-center mt-4">
                             <p>{timestamp}</p>
                            {
-                            upvoted || mail || !user?  <Link to='/login'><button  className="btn text-blue-600 w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300 " disabled><GiVote></GiVote>Upvote ({upvoted})</button></Link> :
+                           voteMail ||  mail || !user?  <Link to='/login'><button  className="btn text-blue-600 w-full  mt-4 bg-gradient-to-r from-cyan-600 to-pink-300 " disabled><GiVote></GiVote>Upvote ({upvoted})</button></Link> :
                             <button onClick={()=>handleUpvote(_id)} className="btn text-white w-full mt-4 bg-gradient-to-r from-cyan-600 to-pink-300"><GiVote></GiVote>Upvote ({upvoted})</button>
                            }
 

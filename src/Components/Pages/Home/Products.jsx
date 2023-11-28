@@ -10,7 +10,7 @@ const Products = () => {
     const pageSize = 20;
     const status = "accept";
 
-    const { data: products = [] } = useQuery({
+    const {refetch, data: products = [] } = useQuery({
         queryKey: ["product", { page, pageSize, search }],
         queryFn: async () => {
             const res = await axiosSecure.get(
@@ -54,7 +54,7 @@ const Products = () => {
             </form>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {product.map(prod => (
-                    <Product key={prod._id} prod={prod}></Product>
+                    <Product key={prod._id} prod={prod} refetch={refetch}></Product>
                 ))}
 
             </div>

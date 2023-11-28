@@ -83,7 +83,8 @@ const AddProducts = () => {
         const email = form.email.value;
         const tags = form.tags.value;
         const links = form.links.value;
-        const product = { product_name, product_image, description, name, image, email,tags, links, timestamp, status:'Pending' }
+        let upvote = 0
+        const product = { product_name, product_image, description, name, image, email,tags, links, timestamp, status:'Pending', upvoted:upvote }
         console.log(product)
 
         axiosPublic.post('/addProduct', product)

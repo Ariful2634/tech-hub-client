@@ -13,7 +13,7 @@ const FeatureProduct = () => {
 
     
 
-    const {  data: feature = [] } = useQuery({
+    const {refetch,  data: feature = [] } = useQuery({
         queryKey: ['feature'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/addProduct?sort=${asc ? 'asc' : 'des'}`)
@@ -36,7 +36,7 @@ const FeatureProduct = () => {
             </div>
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:ml-48 ml-5 lg:ml-28">
             {
-                featured.slice(0,4).map(product=><Feature key={product._id} product={product}></Feature>)
+                featured.slice(0,4).map(product=><Feature key={product._id} product={product} refetch={refetch}></Feature>)
             }
            </div>
         </div>
