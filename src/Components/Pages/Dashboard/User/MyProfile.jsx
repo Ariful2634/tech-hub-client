@@ -1,10 +1,30 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const MyProfile = () => {
 
     const { user } = useContext(AuthContext)
+
+    const axiosSecure = useAxiosSecure()
+
+    const { data: payments = [] } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/payments')
+            return res.data
+            
+        }
+        
+    })
+    console.log(payments)
+
+    const payment = payments.find(pay=>pay.email==user?.email)
+    console.log(payment)
+
 
     return (
         <div>
@@ -40,9 +60,18 @@ const MyProfile = () => {
                                
                             </td>
                             <td>{user.email}</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td>
+                               {
+                                payment?.transactionId ?  <button className="btn  btn-success" disabled>BDT 200tk</button> :
+                                <Link to='/dashboard/payment'> <button className="btn  btn-success">BDT 200tk</button></Link>
+
+                               }
+                            </td>
+                            <td className="text-blue-600 font-bold">
+                                {
+                                    payment?.transactionId ? 'Verified' : 'Not Verified'
+                                }
+                            </td>
                         </tr>
                       
                         

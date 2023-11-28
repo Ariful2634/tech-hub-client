@@ -20,7 +20,7 @@ const Dashboard = () => {
 
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content flex flex-col mt-10 lg:mx-28">
                 {/* Page content here */}
                 <div className="">
                     <Outlet></Outlet>
@@ -31,8 +31,8 @@ const Dashboard = () => {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
 
-                <div className="w-64 min-h-screen bg-orange-400">
-                    <ul className="menu text-white">
+                <div className="w-64 min-h-screen bg-sky-700">
+                    <ul className="menu text-white italic">
 
                         {
                             isAdmin ? <>

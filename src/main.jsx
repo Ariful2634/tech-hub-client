@@ -28,6 +28,7 @@ import Products from './Components/Pages/Home/Products';
 import ReportedContents from './Components/Pages/Dashboard/Moderator/ReportedContents';
 import AllUsers from './Components/Pages/Dashboard/Admin/AllUsers';
 import AdminRoute from './Components/Route/AdminRoute';
+import Payment from './Components/Pages/Dashboard/User/Payment';
 
 const queryClient = new QueryClient()
 
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
         path:'updateMyProduct/:id',
         element:<UpdateMyProduct></UpdateMyProduct>,
         loader:()=>fetch('http://localhost:5000/addProduct')
+      },
+      {
+        path:'payment',
+        element:<Payment></Payment>
       },
 
       // moderator related

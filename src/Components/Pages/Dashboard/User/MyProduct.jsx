@@ -75,7 +75,7 @@ const MyProduct = () => {
                         {
                             products.map(product=> <tr key={product._id}>
                                 <td>{product.product_name}</td>
-                                <td> n/a </td>
+                                <td> {product.upvoted} </td>
                                 <td>
                                 {
                                     product.status === 'Pending' ? <td>{product.status}</td> :
