@@ -1,78 +1,71 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { useState } from "react";
-
 
 const ProductReviewQueue = () => {
-
-    const axiosSecure = useAxiosSecure()
-    // const {confirm,setConfirm}=useState(false)
+    const axiosSecure = useAxiosSecure();
+    const [page, setPage] = useState(1);
+    const pageSize = 20;
 
     const { refetch, data: products = [] } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', { page, pageSize }],
         queryFn: async () => {
-            const res = await axiosSecure.get('/addProduct')
-            return res.data
-
+            const res = await axiosSecure.get(`/addProduct?page=${page}&pageSize=${pageSize}`);
+            return res.data;
         }
+    });
 
-    })
-
-    // const feat = products.map(pro => pro)
-    // console.log(feat)
-
-
+    const sortedProducts = [...products].sort((a, b) => {
+        // "Pending" status will come first, then others in alphabetical order
+        if (a.status === 'Pending' && b.status !== 'Pending') return -1;
+        if (a.status !== 'Pending' && b.status === 'Pending') return 1;
+        return a.status.localeCompare(b.status);
+    });
 
     const handleFeatured = (id) => {
-        // console.log(id)
-
-        
-        // console.log(id)
-        const featured = { mark: 'featured' }
-        console.log(featured)
+        const featured = { mark: 'featured' };
         axiosSecure.put(`/addProduct/mark/${id}`, featured)
             .then(res => {
-                console.log(res.data)
                 if (res.data.insertedId) {
-                                Swal.fire(
-                                    'Congratulations',
-                                    `${featured.product_name} Successfully added to the featured product`,
-                                    'success'
-                                )
-                            }
-                refetch()
-            })
-    }
+                    Swal.fire(
+                        'Congratulations',
+                        `${featured.product_name} Successfully added to the featured product`,
+                        'success'
+                    );
+                }
+                refetch();
+            });
+    };
 
     const handleAccept = (id) => {
-        const accepted = { status: 'accept' }
-        console.log(accepted)
+        const accepted = { status: 'accept' };
         axiosSecure.put(`/addProduct/status/${id}`, accepted)
             .then(res => {
                 console.log(res.data)
-                refetch()
-            })
-        // console.log(id)
-
-    }
+                refetch();
+            });
+    };
 
     const handleReject = (id) => {
-        const rejected = { status: 'reject' }
-        console.log(rejected)
+        const rejected = { status: 'reject' };
         axiosSecure.put(`/addProduct/status/${id}`, rejected)
             .then(res => {
                 console.log(res.data)
-                refetch()
-            })
-        // console.log(id)
+                refetch();
+            });
+    };
 
-    }
+    const handlePrev = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
 
-
-
-
+    const handleNext = () => {
+        setPage(page + 1);
+    };
 
     return (
         <div>
@@ -87,13 +80,11 @@ const ProductReviewQueue = () => {
                             <th>Accept</th>
                             <th>Reject</th>
                             <th>Status</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            products.map(product => <tr key={product._id}>
+                            sortedProducts.map(product => <tr key={product._id}>
                                 <td>{product.product_name}</td>
                                 <td> <Link to={`/featureDetails/${product._id}`}><button className="btn btn-accent">View Details</button></Link> </td>
                                 <td>
@@ -124,13 +115,19 @@ const ProductReviewQueue = () => {
 
                                         </td>
                                 }
-
                             </tr>)
                         }
-
-
                     </tbody>
                 </table>
+            </div>
+            <div className="pagination">
+                <button className="btn btn-circle btn-primary btn-outline mt-6 mr-3 " onClick={handlePrev} disabled={page === 1}>
+                    Prev
+                </button>
+                <span>{`Page ${page}`}</span>
+                <button className="btn btn-circle btn-accent btn-outline mt-6 ml-3" onClick={handleNext} disabled={products.length < pageSize}>
+                    Next
+                </button>
             </div>
         </div>
     );
