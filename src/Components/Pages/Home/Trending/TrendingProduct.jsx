@@ -8,7 +8,7 @@ const TrendingProduct = () => {
 
     const axiosPublic = useAxiosPublic()
 
-    const { data: trendings = [] } = useQuery({
+    const {refetch, data: trendings = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosPublic.get('/trendingProduct')
@@ -24,7 +24,7 @@ const TrendingProduct = () => {
             <h2 className="text-center font-bold text-3xl italic mt-24 mb-12 text-green-600">Trending Products</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8  md:ml-48 ml-5 lg:ml-0">
                 {
-                    trendings.map(trending=><Trending key={trending._id} product={trending}></Trending>)
+                    trendings.map(trending=><Trending key={trending._id} product={trending} refetch={refetch}></Trending>)
                 }
             </div>
             <div className="flex justify-center mt-8">
