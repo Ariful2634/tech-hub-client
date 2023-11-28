@@ -19,12 +19,14 @@ const TrendingProduct = () => {
     })
     // console.log(trending)
 
+    const sortedProducts = trendings.slice().sort((a, b) => b.upvoted - a.upvoted);
+
     return (
         <div>
             <h2 className="text-center font-bold text-3xl italic mt-24 mb-12 text-green-600">Trending Products</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8  md:ml-48 ml-5 lg:ml-0">
                 {
-                    trendings.map(trending=><Trending key={trending._id} product={trending} refetch={refetch}></Trending>)
+                    sortedProducts.map(trending=><Trending key={trending._id} product={trending} refetch={refetch}></Trending>)
                 }
             </div>
             <div className="flex justify-center mt-8">
