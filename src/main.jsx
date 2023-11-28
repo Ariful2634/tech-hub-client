@@ -27,6 +27,7 @@ import ProductReviewQueue from './Components/Pages/Dashboard/Moderator/ProductRe
 import Products from './Components/Pages/Home/Products';
 import ReportedContents from './Components/Pages/Dashboard/Moderator/ReportedContents';
 import AllUsers from './Components/Pages/Dashboard/Admin/AllUsers';
+import AdminRoute from './Components/Route/AdminRoute';
 
 const queryClient = new QueryClient()
 
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
       // admin related
       {
         path:'manageUsers',
-        element:<AllUsers></AllUsers>
+        element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
       }
     ]
   }
