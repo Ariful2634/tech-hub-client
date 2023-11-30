@@ -44,15 +44,7 @@ const CheckoutForm = () => {
             return
         }
 
-        // try {
-        //     axiosSecure.post('/create-payment-intent', { price: price })
-        //     .then(res => {
-        //         console.log(res.data.clientSecret)
-        //         setClientSecret(res.data.clientSecret)
-        //     })
-        // } catch (error) {
-        //     console.log(error)
-        // }
+       
 
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -134,7 +126,7 @@ const CheckoutForm = () => {
 
     })
 
-    console.log(coupons)
+    // console.log(coupons)
 
    
 
@@ -149,6 +141,13 @@ const CheckoutForm = () => {
             e.target.reset()
             console.log(discoutPrice)
             setPrice(discoutPrice)
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `You avail ${items.amount} % discount. Please click on pay button to pay`,
+                showConfirmButton: false,
+                timer: 1500
+            });
             // console.log(price)
             // console.log(items.amount)
         }

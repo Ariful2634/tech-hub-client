@@ -1,12 +1,12 @@
-/* eslint-disable react/prop-types */
-import { Pie } from 'react-chartjs-2';
+// /* eslint-disable react/prop-types */
+// import { Pie } from 'react-chartjs-2';
 
-const Statistics = ({data}) => {
-    return (
-        <div>
-             <Pie data={data} />
-        </div>
-    );
-};
+// const Statistics = ({data}) => {
+//     return (
+//         <div>
+//              <Pie data={data} />
+//         </div>
+//     );
+// };
 
-export default Statistics;
+// export default Statistics;

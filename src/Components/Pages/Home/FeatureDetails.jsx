@@ -92,7 +92,7 @@ const FeatureDetails = () => {
 
 
     
-    const {  data: review = [] } = useQuery({
+    const {refetch,  data: review = [] } = useQuery({
         queryKey: ['review'],
         queryFn: async () => {
             const res = await axiosPublic.get('/reviews')
@@ -103,6 +103,7 @@ const FeatureDetails = () => {
     })
 
     const getReview = review.filter(view => view.product_name === details.product_name)
+    refetch()
     console.log(getReview)
 
     const handleUpvote = id=>{
@@ -197,7 +198,7 @@ const FeatureDetails = () => {
             </div>
             {/* review */}
             <div>
-                
+               
                    
                    {
                     getReview.length > 0 ? 
@@ -205,6 +206,7 @@ const FeatureDetails = () => {
                     {
                         getReview.map(rev => <SwiperSlide key={rev._id}>
                             <div className="py-16 mx-24 space-y-3 flex flex-col items-center">
+                               
                                 <img className="w-[80px] h-[80px] rounded-full" src={rev.image} alt="" />
                                 <Rating
                                     style={{ maxWidth: 180 }}

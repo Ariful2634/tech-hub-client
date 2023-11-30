@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 // import { useState } from 'react';
 // import { render } from 'react-dom';
@@ -38,7 +38,7 @@ const AddProducts = () => {
 
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
-    const [mail,setMail]=useState([])
+    // const [mail,setMail]=useState([])
 
     // const handleDelete = i => {
     //     setTags(tags.filter((tag, index) => index !== i));
@@ -92,10 +92,21 @@ const AddProducts = () => {
     const payment = payments.find(pay=>pay.email==user?.email)
     console.log(payment)
 
-    axiosSecure.get(`/addProduct/${user?.email}`)
-    .then(res=>{
-        setMail(res.data)
+
+    const { data: mail = [] } = useQuery({
+        queryKey: ['post'],
+        queryFn: async () => {
+            const res = await  axiosSecure.get(`/addProduct/${user?.email}`)
+            return res.data
+            
+        }
+        
     })
+
+    // axiosSecure.get(`/addProduct/${user?.email}`)
+    // .then(res=>{
+    //     setMail(res.data)
+    // })
     // console.log(mail)
 
 
