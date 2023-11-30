@@ -30,6 +30,7 @@ import AllUsers from './Components/Pages/Dashboard/Admin/AllUsers';
 import AdminRoute from './Components/Route/AdminRoute';
 import Payment from './Components/Pages/Dashboard/User/Payment';
 import ManageCoupons from './Components/Pages/Dashboard/Admin/ManageCoupons';
+import Error from './Components/Error/Error';
 // import Statistics from './Components/Pages/Dashboard/Admin/Statistics';
 
 const queryClient = new QueryClient()
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement:<Error></Error>,
     children: [
       {
         path: '/',
@@ -54,7 +56,7 @@ const router = createBrowserRouter([
       {
         path:'/featureDetails/:id',
         element:<PrivateRoute><FeatureDetails></FeatureDetails></PrivateRoute>,
-        loader:()=>fetch('http://localhost:5000/addProduct')
+        loader:()=>fetch('https://b8a12-server-side-ariful2634.vercel.app/addProduct')
       },
       {
         path:'products',
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
       {
         path:'updateMyProduct/:id',
         element:<UpdateMyProduct></UpdateMyProduct>,
-        loader:()=>fetch('http://localhost:5000/addProduct')
+        loader:()=>fetch('https://b8a12-server-side-ariful2634.vercel.app/addProduct')
       },
       {
         path:'payment',
