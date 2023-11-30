@@ -186,7 +186,10 @@ const AddProducts = () => {
 
 
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Submit</button>
+                              
+                                    
+                                    <button className="btn btn-primary">Submit</button>
+                               
                             </div>
                         </form>
                     </div>

@@ -15,7 +15,8 @@ const ManageCoupons = () => {
         const expiry_date = form.expiry.value;
         const description = form.description.value;
         const discount_amount = form.amount.value;
-        const coupon = { coupon_code, expiry_date, description, discount_amount }
+        const amount = parseInt(discount_amount)
+        const coupon = { coupon_code, expiry_date, description,amount }
         console.log(coupon)
 
         axiosSecure.post('/coupon', coupon)
@@ -45,6 +46,7 @@ const ManageCoupons = () => {
         }
 
     })
+    // refetch()
 
     return (
         <div>
@@ -64,6 +66,7 @@ const ManageCoupons = () => {
                         <tbody>
                             {
                                 coupons.map((coupon,i)=><tr key={coupon._id}>
+                                    
                                     <th>{i+1}</th>
                                     <td>{coupon.coupon_code}</td>
                                     <td>{coupon.expiry_date}</td>
