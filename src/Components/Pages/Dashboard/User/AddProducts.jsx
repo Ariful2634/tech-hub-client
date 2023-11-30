@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 // import { useState } from 'react';
 // import { render } from 'react-dom';
@@ -12,6 +12,8 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import moment from 'moment';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 // import { WithContext as ReactTags } from 'react-tag-input';
 
 
@@ -36,6 +38,7 @@ const AddProducts = () => {
 
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [mail,setMail]=useState([])
 
     // const handleDelete = i => {
     //     setTags(tags.filter((tag, index) => index !== i));
@@ -69,6 +72,32 @@ const AddProducts = () => {
 
     const timestamp = time.format('MMMM Do YYYY, h:mm:ss a')
 
+    // const { user } = useContext(AuthContext)
+
+  
+
+    const axiosSecure = useAxiosSecure()
+
+    const { data: payments = [] } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/payments')
+            return res.data
+            
+        }
+        
+    })
+    // console.log(payments)
+
+    const payment = payments.find(pay=>pay.email==user?.email)
+    console.log(payment)
+
+    axiosSecure.get(`/addProduct/${user?.email}`)
+    .then(res=>{
+        setMail(res.data)
+    })
+    // console.log(mail)
+
 
 
 
@@ -85,7 +114,7 @@ const AddProducts = () => {
         const links = form.links.value;
         let upvote = 0
         const product = { product_name, product_image, description, name, image, email,tags, links, timestamp, status:'Pending', upvoted:upvote }
-        console.log(product)
+        // console.log(product)
 
         axiosPublic.post('/addProduct', product)
             .then(res => {
@@ -103,6 +132,11 @@ const AddProducts = () => {
             })
 
     }
+
+
+    
+
+    
 
     return (
         <div>
@@ -186,9 +220,11 @@ const AddProducts = () => {
 
 
                             <div className="form-control mt-6">
-                              
+                           
                                     
-                                    <button className="btn btn-primary">Submit</button>
+                                   {
+                                     payment?.transactionId ? <button className="btn btn-primary">Submit</button> : mail.length == 1 ? <button className="btn btn-primary" disabled>Submit</button> : <button className="btn btn-primary">Submit</button>
+                                   }
                                
                             </div>
                         </form>

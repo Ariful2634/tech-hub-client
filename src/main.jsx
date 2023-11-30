@@ -30,6 +30,7 @@ import AllUsers from './Components/Pages/Dashboard/Admin/AllUsers';
 import AdminRoute from './Components/Route/AdminRoute';
 import Payment from './Components/Pages/Dashboard/User/Payment';
 import ManageCoupons from './Components/Pages/Dashboard/Admin/ManageCoupons';
+import Statistics from './Components/Pages/Dashboard/Admin/Statistics';
 
 const queryClient = new QueryClient()
 
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path:'manageUsers',
         element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
+      },
+      {
+        path:'stats',
+        element:<Statistics></Statistics>
       },
       {
         path:'manageCoupons',
