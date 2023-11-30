@@ -29,7 +29,7 @@ const CouponSlider = () => {
                             <p className="font-bold">Coupon Code: {coupon.coupon_code}</p>
                             <p className="text-center font-bold"> Expiry Date: {coupon.expiry_date}</p>
                             <p className="font-bold">Coupon code description: {coupon.description}</p>
-                            <p className="font-bold"> Discount Amount: {coupon.discount_amount}%</p>
+                            <p className="font-bold"> Discount Amount: {coupon.amount}%</p>
                         </div>
                     </SwiperSlide>)
                 }
