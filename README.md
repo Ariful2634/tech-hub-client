@@ -12,6 +12,9 @@
 * User can pay
 * User can get premium membership
 
+# Technology Used
+Reactjs, Tailwind CSS, Daisy UI, Material UI, MongoDB, Firebase, Stripe, Jwt etc.
+
 # Project Live Link
 https://tech-hub-c2612.web.app/
 
