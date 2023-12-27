@@ -71,7 +71,7 @@ const ManageCoupons = () => {
                                     <td>{coupon.coupon_code}</td>
                                     <td>{coupon.expiry_date}</td>
                                     <td>{coupon.description}</td>
-                                    <td>{coupon.discount_amount}%</td>
+                                    <td>{coupon.amount}%</td>
                                 </tr>)
                             }
                             
